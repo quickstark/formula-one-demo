@@ -56,12 +56,10 @@ export default function Main() {
   useEffect(() => {
     if (pollingState) {
       console.log(`***** Request Pub every ${pollingInt} Miliseconds *****`);
-      fetch(
-        `http://localhost:3000/api/drivetime?action=start&interval=${pollingInt}`
-      );
+      fetch(`api/drivetime?action=start&interval=${pollingInt}`);
     } else {
       console.log(`***** Request to End Pub *****`);
-      fetch(`http://localhost:3000/api/drivetime?action=stop`);
+      fetch(`api/drivetime?action=stop`);
     }
     // eslint - disable - next - line;
   }, [pollingState, pollingInt]);
