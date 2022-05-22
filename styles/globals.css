@@ -30,6 +30,37 @@ code {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: top;
   align-items: center;
+}
+/* slider */
+.ant-slider {
+  width: 30%;
+}
+
+/* table */
+.ant-table {
+  font-size: 9px;
+}
+
+.ant-slider-rail, .ant-slider-step {
+  background-color:dodgerblue !important;
+}
+
+.ant-slider-dot {
+  border-color: dodgerblue !important;
+}
+
+/* row data */
+.ant-table-tbody > tr > td {
+  height: 4px;
+  padding: 4px !important;
+}
+/* row tags */
+.my-tag {
+  font-size: 12px;
+}
+.ant-table-row {
+  height: 4px;
+  padding: 0px;
 }
