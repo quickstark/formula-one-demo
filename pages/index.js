@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { configureAbly, useChannel } from "@ably-labs/react-hooks";
-import { raceResults } from "pages/raceresults";
+import { raceResults } from "lib/raceresults";
 
 import {
   Table as AntTable,

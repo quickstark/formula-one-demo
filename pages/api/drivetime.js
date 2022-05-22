@@ -1,5 +1,5 @@
 var Ably = require("ably");
-import { raceResults } from "pages/raceresults";
+import { raceResults } from "lib/raceresults";
 
 const ably = new Ably.Realtime(
   "6mQk9A.VCN3-g:5DXXMKUwGfYXO6ax1jnRZfYTOpA-P3CP_F04jM_oono"
