@@ -32,6 +32,7 @@ function pulseLap(channel, driver) {
   }
 }
 
+// Array of timers as each call to the API might spool up an additional timer
 let timers = [];
 
 export default (req, res) => {
