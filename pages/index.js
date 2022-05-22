@@ -66,7 +66,7 @@ export default function Main() {
     // eslint - disable - next - line;
   }, [pollingState, pollingInt]);
 
-  function handlePolling(e) {
+  function handlePolling() {
     setPollingState(!pollingState);
   }
 
