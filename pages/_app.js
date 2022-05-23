@@ -10,6 +10,6 @@ function Application({ Component, pageProps }) {
 export default Application;
 
 Application.propTypes = {
-  Component: propTypes.Component,
-  pageProps: propTypes.number,
+  Component: propTypes.func,
+  pageProps: propTypes.object,
 };
