@@ -7,5 +7,5 @@
   package = "@netlify/plugin-nextjs"
 
 [[edge_functions]]
-  path = "/test"
-  function = "test"
+  path = "/drivetime"
+  function = "drivetime"

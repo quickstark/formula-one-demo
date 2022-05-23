@@ -54,13 +54,23 @@ export default function Main() {
 
   // Let's turn on or off the Polling based on persisted State
   useEffect(() => {
+    let body = {
+      action: pollingState ? "start" : "stop",
+      interval: pollingState ? pollingInt : 0,
+    };
     if (pollingState) {
       console.log(`***** Request Pub every ${pollingInt} Miliseconds *****`);
-      fetch(`api/drivetime?action=start&interval=${pollingInt}`);
     } else {
       console.log(`***** Request to End Pub *****`);
-      fetch(`api/drivetime?action=stop`);
     }
+    fetch(`/drivetime`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
     // eslint - disable - next - line;
   }, [pollingState, pollingInt]);
 
