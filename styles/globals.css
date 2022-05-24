@@ -33,10 +33,6 @@ code {
   justify-content: top;
   align-items: center;
 }
-/* slider */
-.ant-slider {
-  width: 30%;
-}
 
 /* table */
 .ant-table {

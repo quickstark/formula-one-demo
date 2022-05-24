@@ -140,7 +140,7 @@ export default function Main() {
       </Head>
       <Header title="Next.js + Ably Formula 1 Demo" />
       <p className="description">
-        Hosted @<code>netlify</code>
+      <code>Hosted @netlify</code>
       </p>
       <AntDivider></AntDivider>
       Polling Interval
@@ -151,6 +151,7 @@ export default function Main() {
         step={100}
         defaultValue={pollingInt}
         onAfterChange={handlePollingInt}
+        style={{ width: "50%" }}
       />
       <div className="antswitchrow">
         <AntSwitch
