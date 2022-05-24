@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { configureAbly, useChannel } from "@ably-labs/react-hooks";
 import { raceResults } from "lib/raceresults";
 
 import {
@@ -7,19 +6,16 @@ import {
   Switch as AntSwitch,
   Slider as AntSlider,
   Divider as AntDivider,
+  Checkbox as AntCheckbox,
+  Badge as AntBadge,
+  Space as AntSpace,
 } from "antd";
-
-// import { ClockCircleOutlined } from "@ant-design/icons";
 
 import Head from "next/head";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import SpeedCell from "@components/SpeedCell";
 import LapCell from "@components/LapCell";
-// configureAbly({
-//   key: "6mQk9A.VCN3-g:5DXXMKUwGfYXO6ax1jnRZfYTOpA-P3CP_F04jM_oono",
-//   clientId: "dirk",
-// });
 
 const marks = {
   200: "200ms",
@@ -30,6 +26,7 @@ const marks = {
 
 export default function Main() {
   const [tableData, setTableData] = useState([]);
+  const [messageCount, setMessageCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [pollingState, setPollingState] = useState(false);
   const [pollingInt, setPollingInt] = useState(2000);
@@ -42,14 +39,6 @@ export default function Main() {
       setLoading(false);
     };
     fetchData();
-    // fetch Ably channels
-    // fetch(`http://ergast.com/api/f1/current/last/results.json`)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data.MRData.RaceTable.Races[0].Results);
-    //     setTableData(data.MRData.RaceTable.Races[0].Results);
-    //     setLoading(false)
-    //   }); //set loading if no data
   }, []);
 
   // Let's turn on or off the Polling based on persisted State
@@ -82,6 +71,16 @@ export default function Main() {
     setPollingInt(e);
   }
 
+  function handleDriverPolling(status, record, e) {
+    console.log(e);
+    let newtableData = tableData.map((row) => {
+      if (row.driverid == record.driverid) {
+        return { ...row, driverispolling: e.target.checked };
+      } else return row;
+    });
+    setTableData(newtableData);
+  }
+
   // Define Ant Table Colums matching the Twilio JSON response
   const columns = [
     {
@@ -92,7 +91,7 @@ export default function Main() {
     },
     {
       title: "Driver",
-      dataIndex: "driverid",
+      dataIndex: "name",
     },
     {
       title: "Avg Speed",
@@ -103,13 +102,34 @@ export default function Main() {
       title: "Live Lap Time",
       dataIndex: "livelap",
       align: "center",
-      render: (text, record) => <LapCell record={record} />,
+      render: (text, record) =>
+        record.driverispolling ? (
+          <LapCell record={record} setMessageCount={setMessageCount} />
+        ) : (
+          "N/A"
+        ),
     },
     {
       title: "Live Speed",
       dataIndex: "livespeed",
       align: "center",
-      render: (text, record) => <SpeedCell record={record} />,
+      render: (text, record) =>
+        record.driverispolling ? (
+          <SpeedCell record={record} setMessageCount={setMessageCount} />
+        ) : (
+          "N/A"
+        ),
+    },
+    {
+      title: "Polling",
+      dataIndex: "driverispolling",
+      align: "center",
+      render: (text, record, index) => (
+        <AntCheckbox
+          checked={text}
+          onChange={(e) => handleDriverPolling("active", record, e)}
+        />
+      ),
     },
   ];
 
@@ -124,7 +144,7 @@ export default function Main() {
         Hosted @<code>netlify</code>
       </p>
       <AntDivider></AntDivider>
-      Live Speed Polling Interval
+      Polling Interval
       <AntSlider
         min={200}
         max={10000}
@@ -133,12 +153,20 @@ export default function Main() {
         defaultValue={pollingInt}
         onAfterChange={handlePollingInt}
       />
-      <AntSwitch
-        defaultChecked={false}
-        checkedChildren="Polling"
-        unCheckedChildren="Not Polling"
-        onChange={handlePolling}
-      />
+      <div className="antswitchrow">
+        <AntSwitch
+          defaultChecked={false}
+          checkedChildren="Polling"
+          unCheckedChildren="Not Polling"
+          onChange={handlePolling}
+          style={{ marginRight: "1rem" }}
+        />
+        <span>Received</span>
+        <AntBadge
+          count={messageCount}
+          style={{ backgroundColor: "#1E90FF", marginLeft: ".25rem" }}
+        />
+      </div>
       <AntDivider></AntDivider>
       <AntTable
         loading={loading}

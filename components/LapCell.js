@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import propTypes from "prop-types";
 
 import { configureAbly, useChannel } from "@ably-labs/react-hooks";
+import { Badge as AntBadge } from "antd";
 
 configureAbly({
   key: "6mQk9A.VCN3-g:5DXXMKUwGfYXO6ax1jnRZfYTOpA-P3CP_F04jM_oono",
@@ -16,22 +17,37 @@ const millisToMinutesAndSeconds = (millis) => {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
 
-export default function LapCell({ record }) {
+export default function LapCell({ record, setMessageCount }) {
   const [lap, setLap] = useState(0);
+  const [count, setCount] = useState(0);
 
   console.log(`Lap Cell Position: ${record.position}`);
 
   useChannel(`[?rewind=1]lap-${record.position}`, (message) => {
     console.log(message.data);
     setLap(message.data.livelap);
+    setMessageCount((prevState) => {
+      return prevState + 1;
+    });
+    setCount((prevState) => {
+      return prevState + 1;
+    });
   });
 
   console.log(millisToMinutesAndSeconds(lap));
 
-  return <span className="lapcell">{millisToMinutesAndSeconds(lap)}</span>;
+  return (
+    <span>
+      {millisToMinutesAndSeconds(lap)}
+      <AntBadge
+        count={count}
+        style={{ backgroundColor: "#1E90FF", marginLeft: ".25rem" }}
+      />
+    </span>
+  );
 }
 
 LapCell.propTypes = {
   record: propTypes.object,
-  position: propTypes.number,
+  setMessageCount: propTypes.func,
 };

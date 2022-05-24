@@ -2,6 +2,7 @@
   command = "npm run build"
   publish = ".next"
   functions = "functions"
+  name = "dirk"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
