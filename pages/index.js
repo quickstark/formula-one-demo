@@ -8,7 +8,6 @@ import {
   Divider as AntDivider,
   Checkbox as AntCheckbox,
   Badge as AntBadge,
-  Space as AntSpace,
 } from "antd";
 
 import Head from "next/head";
@@ -124,7 +123,7 @@ export default function Main() {
       title: "Polling",
       dataIndex: "driverispolling",
       align: "center",
-      render: (text, record, index) => (
+      render: (text, record) => (
         <AntCheckbox
           checked={text}
           onChange={(e) => handleDriverPolling("active", record, e)}
