@@ -138,7 +138,7 @@ export default function Main() {
         <title>Drivetime</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header title="Driver Speed" />
+      <Header title="Next.js + Ably Formula 1 Demo" />
       <p className="description">
         Hosted @<code>netlify</code>
       </p>
