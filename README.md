@@ -1,8 +1,8 @@
 # Next.js + Ably Demo
 
-Simple React front-end that uses Netlify Edge-Functions to simulate realtime events on multiple dyammically generated Ably Channels (1/driver) and selective subscription to those events.
+Simple React front-end that uses Ably Hooks in addition to Netlify Edge-Functions to simulate realtime events on multiple dyammically generated Ably Channels (1/driver) and selective subscription to those events.
 
-# Boilerplat Next + Netlify Starter
+# Boilerplate Next + Netlify Starter Info
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/46648482-644c-4c80-bafb-872057e51b6b/deploy-status)](https://app.netlify.com/sites/next-dev-starter/deploys)
 
