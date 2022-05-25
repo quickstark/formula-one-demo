@@ -25,7 +25,9 @@ export default function LapCell({ record, setMessageCount }) {
 
   useChannel(`[?rewind=1]lap-${record.position}`, (message) => {
     console.log(message.data);
-    setLap(message.data.livelap);
+    setLap((prevState) => {
+      return prevState + message.data.livelap;
+    });
     setMessageCount((prevState) => {
       return prevState + 1;
     });

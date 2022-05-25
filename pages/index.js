@@ -40,6 +40,12 @@ export default function Main() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (messageCount >= 1000) {
+      setPollingState(false);
+    }
+  }, [messageCount]);
+
   // Let's turn on or off the Polling based on persisted State
   useEffect(() => {
     let body = {
@@ -120,7 +126,7 @@ export default function Main() {
         ),
     },
     {
-      title: "Polling",
+      title: "Subscribe to Driver Channel",
       dataIndex: "driverispolling",
       align: "center",
       render: (text, record) => (
@@ -140,10 +146,13 @@ export default function Main() {
       </Head>
       <Header title="Next.js + Ably Formula 1 Demo" />
       <p className="description">
-      <code>Hosted @netlify</code>
+        <code>Hosted @netlify</code>
       </p>
       <AntDivider></AntDivider>
       Polling Interval
+      <span style={{ fontStyle: "italic", color: "gray" }}>
+        Will poll to 1000 messages then stop to avoid run-on messages
+      </span>
       <AntSlider
         min={200}
         max={10000}
@@ -156,12 +165,13 @@ export default function Main() {
       <div className="antswitchrow">
         <AntSwitch
           defaultChecked={false}
-          checkedChildren="Polling"
-          unCheckedChildren="Not Polling"
+          checked={pollingState}
+          checkedChildren="Start Polling"
+          unCheckedChildren="Stop Polling"
           onChange={handlePolling}
           style={{ marginRight: "1rem" }}
         />
-        <span>Received</span>
+        <span>Total Ably Messages</span>
         <AntBadge
           count={messageCount}
           style={{ backgroundColor: "#1E90FF", marginLeft: ".25rem" }}
