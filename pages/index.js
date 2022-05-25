@@ -166,8 +166,8 @@ export default function Main() {
         <AntSwitch
           defaultChecked={false}
           checked={pollingState}
-          checkedChildren="Start Polling"
-          unCheckedChildren="Stop Polling"
+          checkedChildren="Polling"
+          unCheckedChildren="Not Polling"
           onChange={handlePolling}
           style={{ marginRight: "1rem" }}
         />
