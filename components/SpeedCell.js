@@ -31,6 +31,7 @@ export default function SpeedCell({ record, setMessageCount }) {
       {speed}
       <AntBadge
         count={count}
+        overflowCount={1000}
         style={{ backgroundColor: "#1E90FF", marginLeft: ".25rem" }}
       />
     </span>

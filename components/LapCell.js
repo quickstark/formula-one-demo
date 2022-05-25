@@ -16,7 +16,6 @@ const millisToMinutesAndSeconds = (millis) => {
   //If seconds is less than 10 put a zero in front.
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
-
 export default function LapCell({ record, setMessageCount }) {
   const [lap, setLap] = useState(0);
   const [count, setCount] = useState(0);
@@ -26,7 +25,7 @@ export default function LapCell({ record, setMessageCount }) {
   useChannel(`[?rewind=1]lap-${record.position}`, (message) => {
     console.log(message.data);
     setLap((prevState) => {
-      return prevState + message.data.livelap;
+      return prevState + parseInt(message.data.livelap);
     });
     setMessageCount((prevState) => {
       return prevState + 1;
@@ -43,6 +42,7 @@ export default function LapCell({ record, setMessageCount }) {
       {millisToMinutesAndSeconds(lap)}
       <AntBadge
         count={count}
+        overflowCount={1000}
         style={{ backgroundColor: "#1E90FF", marginLeft: ".25rem" }}
       />
     </span>

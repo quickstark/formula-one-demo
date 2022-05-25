@@ -174,6 +174,7 @@ export default function Main() {
         <span>Total Ably Messages</span>
         <AntBadge
           count={messageCount}
+          overflowCount={1000}
           style={{ backgroundColor: "#1E90FF", marginLeft: ".25rem" }}
         />
       </div>
